@@ -2,7 +2,7 @@ package org.nbu.transport.dao;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.nbu.transport.config.SessionFactoryUtil;
+import org.nbu.transport.configuration.SessionFactoryUtil;
 import org.nbu.transport.dto.CreateShipmentDto;
 import org.nbu.transport.dto.ShipmentDto;
 import org.nbu.transport.entity.*;
@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class ShipmentDAO {
+public class ShipmentDao {
 
     public static void createShipment(Shipment shipment) {
         try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {

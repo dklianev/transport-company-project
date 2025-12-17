@@ -14,8 +14,9 @@
 
 ## Технологии
 
-- Java 17
+- Java 21
 - Hibernate ORM 7.1.0
+- Hibernate Validator 9.1.0
 - MySQL 8+
 - Gradle build system
 - JUnit 5 за тестване
@@ -26,9 +27,9 @@
 transport-company/
 ├── src/main/java/org/nbu/transport/
 │   ├── entity/          # Entity класове с JPA анотации
-│   ├── dao/              # Data Access Objects
+│   ├── dao/              # Data Access Objects (with Criteria API)
 │   ├── service/          # Бизнес логика и валидация
-│   ├── config/           # Hibernate конфигурация
+│   ├── configuration/    # Hibernate конфигурация
 │   ├── exception/        # Custom exceptions
 │   ├── util/             # Помощни класове
 │   └── app/              # Main приложение

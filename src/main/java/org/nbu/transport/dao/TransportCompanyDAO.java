@@ -1,15 +1,21 @@
 package org.nbu.transport.dao;
 
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.nbu.transport.config.SessionFactoryUtil;
+import org.hibernate.query.Query;
+import org.nbu.transport.configuration.SessionFactoryUtil;
 import org.nbu.transport.dto.CompanyDto;
 import org.nbu.transport.dto.CreateCompanyDto;
 import org.nbu.transport.entity.TransportCompany;
 
+import java.math.BigDecimal;
 import java.util.List;
 
-public class TransportCompanyDAO {
+public class TransportCompanyDao {
 
     public static void createCompany(TransportCompany company) {
         try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
@@ -97,6 +103,62 @@ public class TransportCompanyDAO {
                 session.remove(company);
             }
             transaction.commit();
+        }
+    }
+
+    // --- Criteria API methods (like in example project) ---
+
+    public static List<TransportCompany> findByRevenueBetween(BigDecimal bottom, BigDecimal top) {
+        try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
+            CriteriaBuilder cb = session.getCriteriaBuilder();
+            CriteriaQuery<TransportCompany> cr = cb.createQuery(TransportCompany.class);
+            Root<TransportCompany> root = cr.from(TransportCompany.class);
+
+            cr.select(root).where(cb.between(root.get("revenue"), bottom, top));
+
+            Query<TransportCompany> query = session.createQuery(cr);
+            return query.getResultList();
+        }
+    }
+
+    public static List<TransportCompany> findByNameStartingWithAndRevenueGreaterThan(String name, BigDecimal revenue) {
+        try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
+            CriteriaBuilder cb = session.getCriteriaBuilder();
+            CriteriaQuery<TransportCompany> cr = cb.createQuery(TransportCompany.class);
+            Root<TransportCompany> root = cr.from(TransportCompany.class);
+
+            Predicate greaterThanRevenue = cb.greaterThan(root.get("revenue"), revenue);
+            Predicate nameStartingWith = cb.like(root.get("name"), name + "%");
+
+            cr.select(root).where(cb.and(nameStartingWith, greaterThanRevenue));
+
+            Query<TransportCompany> query = session.createQuery(cr);
+            return query.getResultList();
+        }
+    }
+
+    public static BigDecimal sumRevenue() {
+        try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
+            CriteriaBuilder cb = session.getCriteriaBuilder();
+            CriteriaQuery<BigDecimal> cr = cb.createQuery(BigDecimal.class);
+            Root<TransportCompany> root = cr.from(TransportCompany.class);
+
+            cr.select(cb.sum(root.get("revenue")));
+
+            Query<BigDecimal> query = session.createQuery(cr);
+            return query.getSingleResult();
+        }
+    }
+
+    public static List<TransportCompany> findByNameLike(String name) {
+        try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
+            CriteriaBuilder cb = session.getCriteriaBuilder();
+            CriteriaQuery<TransportCompany> cr = cb.createQuery(TransportCompany.class);
+            Root<TransportCompany> root = cr.from(TransportCompany.class);
+            cr.select(root).where(cb.like(root.get("name"), "%" + name + "%"));
+
+            Query<TransportCompany> query = session.createQuery(cr);
+            return query.getResultList();
         }
     }
 }

@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ShipmentDAOTest {
+class ShipmentDaoTest {
 
     private List<String> validate(Shipment shipment) {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();

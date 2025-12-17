@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TransportCompanyDAOTest {
+class TransportCompanyDaoTest {
 
     private List<String> validate(TransportCompany company) {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();

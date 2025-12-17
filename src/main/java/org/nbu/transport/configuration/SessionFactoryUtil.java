@@ -1,4 +1,4 @@
-package org.nbu.transport.config;
+package org.nbu.transport.configuration;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;

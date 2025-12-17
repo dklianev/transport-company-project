@@ -61,7 +61,7 @@ public class Main {
             System.out.println("✓ Company created successfully!");
 
             // Вземаме последната компания (новосъздадената)
-            List<TransportCompany> allCompanies = TransportCompanyDAO.getAllCompanies();
+            List<TransportCompany> allCompanies = TransportCompanyDao.getAllCompanies();
             TransportCompany demoCompany = allCompanies.get(allCompanies.size() - 1);
             System.out.println("  Created: " + demoCompany);
 
@@ -70,7 +70,7 @@ public class Main {
             TransportService.createClient("Demo Client", "+359888999000", "demo@client.bg");
             System.out.println("✓ Client created successfully!");
 
-            List<Client> allClients = ClientDAO.getAllClients();
+            List<Client> allClients = ClientDao.getAllClients();
             Client demoClient = allClients.get(allClients.size() - 1);
             System.out.println("  Created: " + demoClient);
 
@@ -79,7 +79,7 @@ public class Main {
             TransportService.createEmployee("Demo Driver", "C - trucks", new BigDecimal("2000.00"), demoCompany.getId());
             System.out.println("✓ Employee created successfully!");
 
-            List<Employee> allEmployees = EmployeeDAO.getAllEmployees();
+            List<Employee> allEmployees = EmployeeDao.getAllEmployees();
             Employee demoEmployee = allEmployees.get(allEmployees.size() - 1);
             System.out.println("  Created: " + demoEmployee);
 
@@ -88,7 +88,7 @@ public class Main {
             TransportService.createVehicle("Truck", "CB9999XX", demoCompany.getId());
             System.out.println("✓ Vehicle created successfully!");
 
-            List<Vehicle> allVehicles = VehicleDAO.getAllVehicles();
+            List<Vehicle> allVehicles = VehicleDao.getAllVehicles();
             Vehicle demoVehicle = allVehicles.get(allVehicles.size() - 1);
             System.out.println("  Created: " + demoVehicle);
 
@@ -98,37 +98,37 @@ public class Main {
             // Обновяване на компанията
             System.out.println("Updating company revenue to 5000.00...");
             TransportCompany updatedCompany = new TransportCompany("Demo Transport Ltd", new BigDecimal("5000.00"));
-            TransportCompanyDAO.updateCompany(demoCompany.getId(), updatedCompany);
+            TransportCompanyDao.updateCompany(demoCompany.getId(), updatedCompany);
             System.out.println("✓ Company updated successfully!");
 
-            TransportCompany refreshedCompany = TransportCompanyDAO.getCompany(demoCompany.getId());
+            TransportCompany refreshedCompany = TransportCompanyDao.getCompany(demoCompany.getId());
             System.out.println("  Updated: " + refreshedCompany);
 
             // Обновяване на служител
             System.out.println("\nUpdating employee salary to 2500.00...");
             Employee updatedEmployee = new Employee("Demo Driver Senior", "C+E - trucks with trailer", new BigDecimal("2500.00"));
-            EmployeeDAO.updateEmployee(demoEmployee.getId(), updatedEmployee);
+            EmployeeDao.updateEmployee(demoEmployee.getId(), updatedEmployee);
             System.out.println("✓ Employee updated successfully!");
 
-            Employee refreshedEmployee = EmployeeDAO.getEmployee(demoEmployee.getId());
+            Employee refreshedEmployee = EmployeeDao.getEmployee(demoEmployee.getId());
             System.out.println("  Updated: " + refreshedEmployee);
 
             // Обновяване на клиент
             System.out.println("\nUpdating client phone number...");
             Client updatedClient = new Client("Demo Client Updated", "+359999888777", "updated@client.bg");
-            ClientDAO.updateClient(demoClient.getId(), updatedClient);
+            ClientDao.updateClient(demoClient.getId(), updatedClient);
             System.out.println("✓ Client updated successfully!");
 
-            Client refreshedClient = ClientDAO.getClient(demoClient.getId());
+            Client refreshedClient = ClientDao.getClient(demoClient.getId());
             System.out.println("  Updated: " + refreshedClient);
 
             // Обновяване на превозно средство
             System.out.println("\nUpdating vehicle type...");
             Vehicle updatedVehicle = new Vehicle("Truck Large", "CB9999XX", demoCompany);
-            VehicleDAO.updateVehicle(demoVehicle.getId(), updatedVehicle);
+            VehicleDao.updateVehicle(demoVehicle.getId(), updatedVehicle);
             System.out.println("✓ Vehicle updated successfully!");
 
-            Vehicle refreshedVehicle = VehicleDAO.getVehicle(demoVehicle.getId());
+            Vehicle refreshedVehicle = VehicleDao.getVehicle(demoVehicle.getId());
             System.out.println("  Updated: " + refreshedVehicle);
 
             // ============ DELETE ============
@@ -136,19 +136,19 @@ public class Main {
 
             // Изтриване в обратен ред (заради foreign keys)
             System.out.println("Deleting demo vehicle...");
-            VehicleDAO.deleteVehicle(demoVehicle.getId());
+            VehicleDao.deleteVehicle(demoVehicle.getId());
             System.out.println("✓ Vehicle deleted!");
 
             System.out.println("Deleting demo employee...");
-            EmployeeDAO.deleteEmployee(demoEmployee.getId());
+            EmployeeDao.deleteEmployee(demoEmployee.getId());
             System.out.println("✓ Employee deleted!");
 
             System.out.println("Deleting demo client...");
-            ClientDAO.deleteClient(demoClient.getId());
+            ClientDao.deleteClient(demoClient.getId());
             System.out.println("✓ Client deleted!");
 
             System.out.println("Deleting demo company...");
-            TransportCompanyDAO.deleteCompany(demoCompany.getId());
+            TransportCompanyDao.deleteCompany(demoCompany.getId());
             System.out.println("✓ Company deleted!");
 
             System.out.println("\n✓ All CRUD operations completed successfully!\n");
@@ -172,7 +172,7 @@ public class Main {
             System.out.println("   ✓ Company created: " + createCompanyDto);
 
             // Вземаме новосъздадената компания
-            List<TransportCompany> allCompanies = TransportCompanyDAO.getAllCompanies();
+            List<TransportCompany> allCompanies = TransportCompanyDao.getAllCompanies();
             TransportCompany dtoCompany = allCompanies.get(allCompanies.size() - 1);
 
             // 2. Създаване на клиент чрез DTO
@@ -182,7 +182,7 @@ public class Main {
             System.out.println("   ✓ Client created: " + createClientDto);
 
             // Вземаме новосъздадения клиент
-            List<Client> allClients = ClientDAO.getAllClients();
+            List<Client> allClients = ClientDao.getAllClients();
             Client dtoClient = allClients.get(allClients.size() - 1);
 
             // 3. Създаване на служител чрез DTO
@@ -193,7 +193,7 @@ public class Main {
             System.out.println("   ✓ Employee created: " + createEmployeeDto);
 
             // Вземаме новосъздадения служител
-            List<Employee> allEmployees = EmployeeDAO.getAllEmployees();
+            List<Employee> allEmployees = EmployeeDao.getAllEmployees();
             Employee dtoEmployee = allEmployees.get(allEmployees.size() - 1);
 
             // 4. Създаване на превозно средство чрез DTO
@@ -204,7 +204,7 @@ public class Main {
             System.out.println("   ✓ Vehicle created: " + createVehicleDto);
 
             // Вземаме новосъздаденото превозно средство
-            List<Vehicle> allVehicles = VehicleDAO.getAllVehicles();
+            List<Vehicle> allVehicles = VehicleDao.getAllVehicles();
             Vehicle dtoVehicle = allVehicles.get(allVehicles.size() - 1);
 
             // 5. Създаване на превоз чрез DTO
@@ -224,7 +224,7 @@ public class Main {
             System.out.println("   ✓ Shipment created: " + createShipmentDto);
 
             // Вземаме новосъздадения превоз
-            List<Shipment> allShipments = ShipmentDAO.getAllShipments();
+            List<Shipment> allShipments = ShipmentDao.getAllShipments();
             Shipment dtoShipment = allShipments.get(allShipments.size() - 1);
 
             // ============ READ WITH DTOs ============
@@ -289,19 +289,19 @@ public class Main {
             System.out.println("\n[CLEANUP] Deleting DTO demo records...");
             
             // Изтриване в правилен ред (заради foreign keys)
-            ShipmentDAO.deleteShipment(dtoShipment.getId());
+            ShipmentDao.deleteShipment(dtoShipment.getId());
             System.out.println("✓ Deleted demo shipment");
 
-            VehicleDAO.deleteVehicle(dtoVehicle.getId());
+            VehicleDao.deleteVehicle(dtoVehicle.getId());
             System.out.println("✓ Deleted demo vehicle");
 
-            EmployeeDAO.deleteEmployee(dtoEmployee.getId());
+            EmployeeDao.deleteEmployee(dtoEmployee.getId());
             System.out.println("✓ Deleted demo employee");
 
-            ClientDAO.deleteClient(dtoClient.getId());
+            ClientDao.deleteClient(dtoClient.getId());
             System.out.println("✓ Deleted demo client");
 
-            TransportCompanyDAO.deleteCompany(dtoCompany.getId());
+            TransportCompanyDao.deleteCompany(dtoCompany.getId());
             System.out.println("✓ Deleted demo company");
 
             System.out.println("\n✓ All DTO operations completed successfully!\n");
@@ -316,7 +316,7 @@ public class Main {
         System.out.println("--- COMPANY OPERATIONS ---\n");
 
         System.out.println("Fetching all companies...");
-        List<TransportCompany> companies = TransportCompanyDAO.getAllCompanies();
+        List<TransportCompany> companies = TransportCompanyDao.getAllCompanies();
         companies.forEach(System.out::println);
 
         System.out.println("\nCompanies sorted by name:");
@@ -330,7 +330,7 @@ public class Main {
         System.out.println("\n--- EMPLOYEE OPERATIONS ---\n");
 
         System.out.println("Fetching all employees...");
-        List<Employee> employees = EmployeeDAO.getAllEmployees();
+        List<Employee> employees = EmployeeDao.getAllEmployees();
         employees.forEach(System.out::println);
 
         System.out.println("\nEmployees sorted by qualification:");
@@ -340,7 +340,7 @@ public class Main {
         TransportService.getEmployeesSortedBySalary().forEach(System.out::println);
 
         System.out.println("\nEmployees of company with ID 1:");
-        EmployeeDAO.getEmployeesByCompany(1L).forEach(System.out::println);
+        EmployeeDao.getEmployeesByCompany(1L).forEach(System.out::println);
 
         System.out.println("\nEmployees with qualification 'C - trucks':");
         List<Employee> truckDrivers = TransportService.getEmployeesByQualification("C - trucks");
@@ -355,18 +355,18 @@ public class Main {
         System.out.println("\n--- VEHICLE OPERATIONS ---\n");
 
         System.out.println("Fetching all vehicles...");
-        List<Vehicle> vehicles = VehicleDAO.getAllVehicles();
+        List<Vehicle> vehicles = VehicleDao.getAllVehicles();
         vehicles.forEach(System.out::println);
 
         System.out.println("\nVehicles of company with ID 1:");
-        VehicleDAO.getVehiclesByCompany(1L).forEach(System.out::println);
+        VehicleDao.getVehiclesByCompany(1L).forEach(System.out::println);
     }
 
     private static void demonstrateClientOperations() {
         System.out.println("\n--- CLIENT OPERATIONS ---\n");
 
         System.out.println("Fetching all clients...");
-        List<Client> clients = ClientDAO.getAllClients();
+        List<Client> clients = ClientDao.getAllClients();
         clients.forEach(System.out::println);
     }
 
@@ -374,17 +374,17 @@ public class Main {
         System.out.println("\n--- SHIPMENT OPERATIONS ---\n");
 
         System.out.println("Fetching all shipments...");
-        List<Shipment> shipments = ShipmentDAO.getAllShipments();
+        List<Shipment> shipments = ShipmentDao.getAllShipments();
         shipments.forEach(System.out::println);
 
         System.out.println("\nShipments sorted by destination:");
         TransportService.getShipmentsSortedByDestination().forEach(System.out::println);
 
         System.out.println("\nShipments to Plovdiv:");
-        ShipmentDAO.getShipmentsByDestination("Plovdiv").forEach(System.out::println);
+        ShipmentDao.getShipmentsByDestination("Plovdiv").forEach(System.out::println);
 
         System.out.println("\nShipments by company 1:");
-        ShipmentDAO.getShipmentsByCompany(1L).forEach(System.out::println);
+        ShipmentDao.getShipmentsByCompany(1L).forEach(System.out::println);
 
         // Превози на конкретен клиент
         System.out.println("\nShipments by client 1:");
@@ -425,7 +425,7 @@ public class Main {
         if (!shipments.isEmpty()) {
             Long shipmentId = shipments.get(0).getId();
             System.out.println("\nFetching shipment by ID " + shipmentId + ":");
-            Shipment singleShipment = ShipmentDAO.getShipment(shipmentId);
+            Shipment singleShipment = ShipmentDao.getShipment(shipmentId);
             if (singleShipment != null) {
                 System.out.println("  " + singleShipment);
                 
@@ -433,12 +433,12 @@ public class Main {
                 System.out.println("\nUpdating shipment price...");
                 BigDecimal originalPrice = singleShipment.getPrice();
                 singleShipment.setPrice(originalPrice.add(new BigDecimal("10.00")));
-                ShipmentDAO.updateShipment(shipmentId, singleShipment);
+                ShipmentDao.updateShipment(shipmentId, singleShipment);
                 System.out.println("✓ Shipment updated! New price: " + singleShipment.getPrice() + " BGN");
                 
                 // Връщаме оригиналната цена
                 singleShipment.setPrice(originalPrice);
-                ShipmentDAO.updateShipment(shipmentId, singleShipment);
+                ShipmentDao.updateShipment(shipmentId, singleShipment);
                 System.out.println("  (Price restored to original: " + originalPrice + " BGN)");
             }
         }
@@ -458,7 +458,7 @@ public class Main {
 
         // Приходи по компания
         System.out.println("\nRevenue by company:");
-        List<TransportCompany> companies = TransportCompanyDAO.getAllCompanies();
+        List<TransportCompany> companies = TransportCompanyDao.getAllCompanies();
         for (TransportCompany company : companies) {
             BigDecimal companyRevenue = TransportService.getRevenueByCompany(company.getId());
             System.out.println("  " + company.getName() + ": " + 
@@ -496,7 +496,7 @@ public class Main {
     private static void demonstrateFileOperations() {
         System.out.println("\n--- FILE OPERATIONS ---\n");
 
-        List<Shipment> shipments = ShipmentDAO.getAllShipments();
+        List<Shipment> shipments = ShipmentDao.getAllShipments();
         
         if (shipments.isEmpty()) {
             System.out.println("No shipments to export.");
@@ -512,7 +512,7 @@ public class Main {
 
         // Експорт по компания
         System.out.println("\nExporting shipments by company 1 to file...");
-        List<Shipment> company1Shipments = ShipmentDAO.getShipmentsByCompany(1L);
+        List<Shipment> company1Shipments = ShipmentDao.getShipmentsByCompany(1L);
         if (!company1Shipments.isEmpty()) {
             TransportService.exportShipmentsToFile(company1Shipments, "company_1_shipments");
             System.out.println("✓ Export completed!");

@@ -2,14 +2,14 @@ package org.nbu.transport.dao;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.nbu.transport.config.SessionFactoryUtil;
+import org.nbu.transport.configuration.SessionFactoryUtil;
 import org.nbu.transport.dto.ClientDto;
 import org.nbu.transport.dto.CreateClientDto;
 import org.nbu.transport.entity.Client;
 
 import java.util.List;
 
-public class ClientDAO {
+public class ClientDao {
 
     public static void createClient(Client client) {
         try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {

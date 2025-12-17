@@ -21,7 +21,7 @@ public class TransportService {
         validatePositiveOrZero(revenue, "Revenue");
 
         TransportCompany company = new TransportCompany(name, revenue);
-        TransportCompanyDAO.createCompany(company);
+        TransportCompanyDao.createCompany(company);
     }
 
     // --- DTO-based methods ---
@@ -29,25 +29,25 @@ public class TransportService {
     public static void createCompanyDto(CreateCompanyDto dto) throws ValidationException {
         validateNotEmpty(dto.getName(), "Company name");
         validatePositiveOrZero(dto.getRevenue(), "Revenue");
-        TransportCompanyDAO.createCompanyDto(dto);
+        TransportCompanyDao.createCompanyDto(dto);
     }
 
     public static void createEmployeeDto(CreateEmployeeDto dto) throws ValidationException {
         validateNotEmpty(dto.getName(), "Employee name");
         validateNotEmpty(dto.getQualification(), "Qualification");
         validatePositive(dto.getSalary(), "Salary");
-        EmployeeDAO.createEmployeeDto(dto);
+        EmployeeDao.createEmployeeDto(dto);
     }
 
     public static void createClientDto(CreateClientDto dto) throws ValidationException {
         validateNotEmpty(dto.getName(), "Client name");
-        ClientDAO.createClientDto(dto);
+        ClientDao.createClientDto(dto);
     }
 
     public static void createVehicleDto(CreateVehicleDto dto) throws ValidationException {
         validateNotEmpty(dto.getType(), "Vehicle type");
         validateNotEmpty(dto.getRegistrationNumber(), "Registration number");
-        VehicleDAO.createVehicleDto(dto);
+        VehicleDao.createVehicleDto(dto);
     }
 
     public static void createShipmentDto(CreateShipmentDto dto) throws ValidationException {
@@ -61,35 +61,35 @@ public class TransportService {
         if (dto.getArrivalDate().isBefore(dto.getDepartureDate())) {
             throw new ValidationException("Arrival date must be after departure date");
         }
-        ShipmentDAO.createShipmentDto(dto);
+        ShipmentDao.createShipmentDto(dto);
     }
 
     public static List<CompanyDto> getAllCompaniesDto() {
-        return TransportCompanyDAO.getAllCompaniesDto();
+        return TransportCompanyDao.getAllCompaniesDto();
     }
 
     public static CompanyDto getCompanyDto(Long id) {
-        return TransportCompanyDAO.getCompanyDto(id);
+        return TransportCompanyDao.getCompanyDto(id);
     }
 
     public static List<EmployeeDto> getAllEmployeesDto() {
-        return EmployeeDAO.getAllEmployeesDto();
+        return EmployeeDao.getAllEmployeesDto();
     }
 
     public static List<EmployeeCompanyDto> getEmployeesWithCompanyDto(Long companyId) {
-        return EmployeeDAO.getEmployeesWithCompanyDto(companyId);
+        return EmployeeDao.getEmployeesWithCompanyDto(companyId);
     }
 
     public static List<ClientDto> getAllClientsDto() {
-        return ClientDAO.getAllClientsDto();
+        return ClientDao.getAllClientsDto();
     }
 
     public static List<VehicleDto> getAllVehiclesDto() {
-        return VehicleDAO.getAllVehiclesDto();
+        return VehicleDao.getAllVehiclesDto();
     }
 
     public static List<ShipmentDto> getAllShipmentsDto() {
-        return ShipmentDAO.getAllShipmentsDto();
+        return ShipmentDao.getAllShipmentsDto();
     }
 
     public static void createEmployee(String name, String qualification, BigDecimal salary, Long companyId)
@@ -98,14 +98,14 @@ public class TransportService {
         validateNotEmpty(qualification, "Qualification");
         validatePositive(salary, "Salary");
 
-        TransportCompany company = TransportCompanyDAO.getCompany(companyId);
+        TransportCompany company = TransportCompanyDao.getCompany(companyId);
         if (company == null) {
             throw new ValidationException("Company with ID " + companyId + " not found");
         }
 
         Employee employee = new Employee(name, qualification, salary);
         employee.setCompany(company);
-        EmployeeDAO.createEmployee(employee);
+        EmployeeDao.createEmployee(employee);
     }
 
     public static void createVehicle(String type, String registrationNumber, Long companyId)
@@ -113,20 +113,20 @@ public class TransportService {
         validateNotEmpty(type, "Vehicle type");
         validateNotEmpty(registrationNumber, "Registration number");
 
-        TransportCompany company = TransportCompanyDAO.getCompany(companyId);
+        TransportCompany company = TransportCompanyDao.getCompany(companyId);
         if (company == null) {
             throw new ValidationException("Company with ID " + companyId + " not found");
         }
 
         Vehicle vehicle = new Vehicle(type, registrationNumber, company);
-        VehicleDAO.createVehicle(vehicle);
+        VehicleDao.createVehicle(vehicle);
     }
 
     public static void createClient(String name, String phone, String email) throws ValidationException {
         validateNotEmpty(name, "Client name");
 
         Client client = new Client(name, phone, email);
-        ClientDAO.createClient(client);
+        ClientDao.createClient(client);
     }
 
     public static void createShipment(String startPoint, String endPoint, LocalDateTime departureDate,
@@ -153,10 +153,10 @@ public class TransportService {
             throw new ValidationException("Passenger count is required for passenger shipment");
         }
 
-        TransportCompany company = TransportCompanyDAO.getCompany(companyId);
-        Client client = ClientDAO.getClient(clientId);
-        Vehicle vehicle = VehicleDAO.getVehicle(vehicleId);
-        Employee driver = EmployeeDAO.getEmployee(driverId);
+        TransportCompany company = TransportCompanyDao.getCompany(companyId);
+        Client client = ClientDao.getClient(clientId);
+        Vehicle vehicle = VehicleDao.getVehicle(vehicleId);
+        Employee driver = EmployeeDao.getEmployee(driverId);
 
         if (company == null || client == null || vehicle == null || driver == null) {
             throw new ValidationException("One or more referenced entities not found");
@@ -166,47 +166,47 @@ public class TransportService {
                                          cargoType, price, company, client, vehicle, driver);
         shipment.setWeight(weight);
         shipment.setPassengerCount(passengerCount);
-        ShipmentDAO.createShipment(shipment);
+        ShipmentDao.createShipment(shipment);
     }
 
     public static List<TransportCompany> getCompaniesSortedByName() {
-        return TransportCompanyDAO.getCompaniesSortedByName();
+        return TransportCompanyDao.getCompaniesSortedByName();
     }
 
     public static List<TransportCompany> getCompaniesSortedByRevenue() {
-        return TransportCompanyDAO.getCompaniesSortedByRevenue();
+        return TransportCompanyDao.getCompaniesSortedByRevenue();
     }
 
     public static List<Employee> getEmployeesSortedByQualification() {
-        return EmployeeDAO.getEmployeesSortedByQualification();
+        return EmployeeDao.getEmployeesSortedByQualification();
     }
 
     public static List<Employee> getEmployeesSortedBySalary() {
-        return EmployeeDAO.getEmployeesSortedBySalary();
+        return EmployeeDao.getEmployeesSortedBySalary();
     }
 
     public static List<Employee> getEmployeesByQualification(String qualification) {
-        return EmployeeDAO.getEmployeesByQualification(qualification);
+        return EmployeeDao.getEmployeesByQualification(qualification);
     }
 
     public static List<Shipment> getShipmentsSortedByDestination() {
-        return ShipmentDAO.getShipmentsSortedByDestination();
+        return ShipmentDao.getShipmentsSortedByDestination();
     }
 
     public static List<Shipment> getShipmentsByClient(Long clientId) {
-        return ShipmentDAO.getShipmentsByClient(clientId);
+        return ShipmentDao.getShipmentsByClient(clientId);
     }
 
     public static List<Shipment> getUnpaidShipments() {
-        return ShipmentDAO.getUnpaidShipments();
+        return ShipmentDao.getUnpaidShipments();
     }
 
     public static List<Shipment> getPaidShipments() {
-        return ShipmentDAO.getPaidShipments();
+        return ShipmentDao.getPaidShipments();
     }
 
     public static void markShipmentAsPaid(Long shipmentId) {
-        ShipmentDAO.markShipmentAsPaid(shipmentId);
+        ShipmentDao.markShipmentAsPaid(shipmentId);
     }
 
     public static void exportShipmentsToFile(List<Shipment> shipments, String filename) {
@@ -218,15 +218,15 @@ public class TransportService {
     }
 
     public static Long getTotalShipmentsCount() {
-        return ShipmentDAO.getTotalShipmentsCount();
+        return ShipmentDao.getTotalShipmentsCount();
     }
 
     public static BigDecimal getTotalRevenue() {
-        return ShipmentDAO.getTotalRevenue();
+        return ShipmentDao.getTotalRevenue();
     }
 
     public static Map<Long, Integer> getShipmentsCountPerDriver() {
-        List<Object[]> results = ShipmentDAO.getShipmentsCountPerDriver();
+        List<Object[]> results = ShipmentDao.getShipmentsCountPerDriver();
         Map<Long, Integer> map = new HashMap<>();
         for (Object[] row : results) {
             map.put((Long) row[0], ((Long) row[1]).intValue());
@@ -235,7 +235,7 @@ public class TransportService {
     }
 
     public static Map<Long, BigDecimal> getRevenuePerDriver() {
-        List<Object[]> results = ShipmentDAO.getRevenuePerDriver();
+        List<Object[]> results = ShipmentDao.getRevenuePerDriver();
         Map<Long, BigDecimal> map = new HashMap<>();
         for (Object[] row : results) {
             map.put((Long) row[0], (BigDecimal) row[1]);
@@ -244,11 +244,11 @@ public class TransportService {
     }
 
     public static BigDecimal getRevenueForPeriod(Long companyId, LocalDateTime startDate, LocalDateTime endDate) {
-        return ShipmentDAO.getRevenueForPeriod(companyId, startDate, endDate);
+        return ShipmentDao.getRevenueForPeriod(companyId, startDate, endDate);
     }
 
     public static BigDecimal getRevenueByCompany(Long companyId) {
-        return ShipmentDAO.getRevenueByCompany(companyId);
+        return ShipmentDao.getRevenueByCompany(companyId);
     }
 
     private static void validateNotEmpty(String value, String fieldName) throws ValidationException {

@@ -2,7 +2,7 @@ package org.nbu.transport.dao;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.nbu.transport.config.SessionFactoryUtil;
+import org.nbu.transport.configuration.SessionFactoryUtil;
 import org.nbu.transport.dto.CreateVehicleDto;
 import org.nbu.transport.dto.VehicleDto;
 import org.nbu.transport.entity.TransportCompany;
@@ -10,7 +10,7 @@ import org.nbu.transport.entity.Vehicle;
 
 import java.util.List;
 
-public class VehicleDAO {
+public class VehicleDao {
 
     public static void createVehicle(Vehicle vehicle) {
         try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {

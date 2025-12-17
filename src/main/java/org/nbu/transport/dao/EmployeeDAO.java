@@ -2,7 +2,7 @@ package org.nbu.transport.dao;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.nbu.transport.config.SessionFactoryUtil;
+import org.nbu.transport.configuration.SessionFactoryUtil;
 import org.nbu.transport.dto.CreateEmployeeDto;
 import org.nbu.transport.dto.EmployeeCompanyDto;
 import org.nbu.transport.dto.EmployeeDto;
@@ -11,7 +11,7 @@ import org.nbu.transport.entity.TransportCompany;
 
 import java.util.List;
 
-public class EmployeeDAO {
+public class EmployeeDao {
 
     public static void createEmployee(Employee employee) {
         try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
