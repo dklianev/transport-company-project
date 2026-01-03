@@ -106,7 +106,7 @@ public class TransportCompanyDao {
         }
     }
 
-    // --- Criteria API methods (like in example project) ---
+    // --- Criteria API methods ---
 
     public static List<TransportCompany> findByRevenueBetween(BigDecimal bottom, BigDecimal top) {
         try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
